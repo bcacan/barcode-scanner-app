@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "html5-qrcode": "^2.2.1",
     "next": "latest",
     "next-pwa": "^5.4.1",
     "react": "^17.0.2",
