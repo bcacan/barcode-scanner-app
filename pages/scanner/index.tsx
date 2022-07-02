@@ -152,8 +152,7 @@ function Header(props) {
         </button>
       ) : (
         <button className="button b-primary" onClick={props.initScan}>
-          <img src="scan-icon.svg"></img>
-          Skeniraj
+          <img src="scan-icon.svg"></img>Skeniraj
         </button>
       )}
     </div>

@@ -4,6 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  background-color: #1a1a1a;
+  color: whitesmoke;
 }
 
 a {
@@ -56,11 +59,13 @@ a {
 .b-primary {
   background-color: #b31f24;
   color: #ffffff;
+  font-weight: 400;
 }
 .b-secondary {
   color: #b31f24;
-  background-color: #ffffff;
   border: #b31f24 2px solid;
+  background-color: transparent;
+  font-weight: 500;
 }
 
 .head-buttons {
