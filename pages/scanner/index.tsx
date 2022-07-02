@@ -1,25 +1,32 @@
 import { Html5QrcodeScanner } from "html5-qrcode";
-import { Html5Qrcode } from "html5-qrcode";
+//import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
-import hello from "../api/hello";
 
 const callAPI = async (code: string) => {
   try {
     const res = await fetch(`api/woocOrder?code=${code}`);
     const data = await res.json();
     console.log("json:", data);
+    return data;
   } catch (err) {
     console.log(err);
+    return err;
   }
 };
 
 export default function Scanner() {
-  const [scannedCode, setScannedCode] = useState(true);
-  const [wooData, setWooData] = useState();
+  // const [scannedCode, setScannedCode] = useState(true);
+  const [scannedResult, setScannedResult] = useState();
 
   function onScanSuccess(decodedText: any, decodedResult: any) {
     // handle the scanned code as you like, for example:
     console.log(`Code matched = ${decodedText}`, decodedResult);
+
+    callAPI(decodedText)
+      .then((res) => {
+        if (res) setScannedResult(res);
+      })
+      .catch((e) => console.log("Error catch: ", e));
   }
 
   function onScanFailure(error: any) {
@@ -39,12 +46,19 @@ export default function Scanner() {
 
   return (
     <div>
-      <b>scanner</b>
       <div id="reader" width="600px"></div>
 
-      {scannedCode && <button onClick={() => callAPI("1234")}> CHECK </button>}
+      {/* {scannedCode && <button onClick={() => }> CHECK </button>} */}
 
-      <pre>{wooData}</pre>
+      <Info data={scannedResult} />
     </div>
+  );
+}
+
+function Info({ data }) {
+  return (
+    <>
+      <div>{data}</div>
+    </>
   );
 }
