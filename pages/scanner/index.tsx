@@ -38,8 +38,9 @@ export default function Scanner() {
     console.warn(`Code scan error = ${error}`);
   }
 
+  let html5QrcodeScanner;
   useEffect(() => {
-    let html5QrcodeScanner = new Html5QrcodeScanner(
+    html5QrcodeScanner = new Html5QrcodeScanner(
       "reader",
       { fps: 10, qrbox: { width: 250, height: 250 } },
       /* verbose= */ false,
@@ -51,7 +52,6 @@ export default function Scanner() {
       <div id="reader" width="600px"></div>
 
       {/* {scannedCode && <button onClick={() => }> CHECK </button>} */}
-      <button onClick={onScanSuccess}>asd</button>
       <Info data={scannedResult} />
     </div>
   );
