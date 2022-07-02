@@ -58,7 +58,9 @@ export default function Scanner() {
 function Info({ data }) {
   return (
     <>
-      <div>{data}</div>
+      <div>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
     </>
   );
 }
