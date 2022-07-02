@@ -28,6 +28,8 @@ export default function Scanner() {
         if (res) setScannedResult(res);
       })
       .catch((e) => console.log("Error catch: ", e));
+
+    html5QrcodeScanner.pause(true);
   }
 
   function onScanFailure(error: any) {
@@ -49,7 +51,7 @@ export default function Scanner() {
       <div id="reader" width="600px"></div>
 
       {/* {scannedCode && <button onClick={() => }> CHECK </button>} */}
-
+      <button onClick={onScanSuccess}>asd</button>
       <Info data={scannedResult} />
     </div>
   );
