@@ -1,7 +1,5 @@
-//@ts-nocheck
-import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, MouseEventHandler } from "react";
 import moment from "moment";
 
 const callAPI = async (code: string) => {
@@ -15,7 +13,8 @@ const callAPI = async (code: string) => {
     return err;
   }
 };
-var html5QrCode;
+
+var html5QrCode: Html5Qrcode;
 export default function Scanner() {
   // const [scannedCode, setScannedCode] = useState(true);
   const scannerRef = useRef(null);
@@ -57,7 +56,7 @@ export default function Scanner() {
     startScan({ facingMode: "environment" });
   };
 
-  const startScan = (cameraId) => {
+  const startScan = (cameraId: string | MediaTrackConstraints) => {
     // const html5QrCode = new Html5Qrcode(/* element id */ "reader");
     html5QrCode
       .start(
@@ -138,7 +137,12 @@ export default function Scanner() {
   );
 }
 
-function Header(props) {
+function Header(props: {
+  stopScan: MouseEventHandler<HTMLButtonElement> | undefined;
+  foundCode: any;
+  resumeScan: MouseEventHandler<HTMLButtonElement> | undefined;
+  initScan: MouseEventHandler<HTMLButtonElement> | undefined;
+}) {
   return (
     <div className="head-buttons">
       <button className="button b-secondary" onClick={props.stopScan}>
@@ -159,7 +163,7 @@ function Header(props) {
   );
 }
 
-function Info({ data }) {
+function Info({ data }: any) {
   data = data["result"];
   const printData = data ? JSON.stringify(data, null, 2) : "";
 
@@ -169,6 +173,7 @@ function Info({ data }) {
 
   console.log("clanstvo:", member_product, data["products_skus"]);
   const date = data["date_created"] ? moment(data["date_created"]["date"]) : false;
+  if (!date) return null;
 
   const date_fromnow = date && date.isValid() ? date.fromNow(true) : false;
   const diff_years = date && date.isValid() ? moment().diff(date, "years", true) : false; // razlika u godinama
